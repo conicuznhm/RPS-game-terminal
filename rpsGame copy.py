@@ -9,9 +9,7 @@ class Player:
         self.score = 0
 
     def choose_gesture(self):
-        raise NotImplementedError(
-            "Abstract method 'choose_gesture' must be implemented.")
-        # pass
+        pass
 
     def increment_score(self):
         self.score += 1
@@ -23,14 +21,8 @@ class Human(Player):
         self.name = input("Enter your name: ")
 
     def choose_gesture(self):
-        self.result = input(
-            "Choose a gesture[rock(R),paper(P),scissors(S)]: ").lower()
-        if self.result == "r":
-            self.result = "rock"
-        elif self.result == "p":
-            self.result = "paper"
-        elif self.result == "s":
-            self.result = "scissors"
+        self.result = input("Choose a gesture: ")
+        # return self.result
 
 
 class Computer(Player):
@@ -50,11 +42,8 @@ class Game:
         self.rounds = rounds
 
         # Rules tell you which gesture beats which gesture
-        self.rules = {
-            "rock": ["scissors"],   # rock win scissors
-            "paper": ["rock"],      # paper win rock
-            "scissors": ["paper"],  # scissor win paper
-        }
+        self.rules = {"rock": ["scissors"],
+                      "scissors": ["paper"], "paper": ["rock"]}
 
         print("Welcome to Rock, Paper, Scissors Game!!!")
 
@@ -82,9 +71,6 @@ class Game:
             self.player1.choose_gesture()
             self.player2.choose_gesture()
 
-            if self.player1.result == "exit" or self.player2.result == "exit":
-                break
-
             print(f"{self.player1.name} choose: {self.player1.result}")
             print(f"{self.player2.name} choose: {self.player2.result}")
 
@@ -100,17 +86,3 @@ computer2 = Computer()
 
 game = Game(human, computer)
 game.start()
-
-
-# # Rules tell you which gesture beats which gesture
-#         self.rules = {
-#             # "rock": ["scissors", "s"],
-#             # "paper": ["rock", "r"],
-#             # "scissors": ["paper", "p"],
-#             # "r": ["scissors", "s"],
-#             # "p": ["rock", "r"],
-#             # "s": ["paper", "p"]
-#             "r": ["s"],  # rock win scissors
-#             "p": ["r"],  # paper win rock
-#             "s": ["p"]  # scissor win paper
-#         }
